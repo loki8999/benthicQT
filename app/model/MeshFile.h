@@ -195,11 +195,7 @@ namespace ews {
                         string path=osgDB::getFilePath(it->toStdString());
                         if(path.size() ==0)
                             path=".";
-                        _tree=loadBBox(string(path+"/campath.txt").c_str());
-                        if(_tree)
-                            qDebug() << "Sucessfully loaded Tree";
-                        else
-                            qDebug() << "Failed to load Tree";
+                        _bboxes=loadBBox(string(path+"/campath.txt").c_str());
                         it++;
                     }
                 }
@@ -329,7 +325,7 @@ namespace ews {
                 std::vector<QString> curr_imgs;
                 //bool _enabled;
                 QStringList filenames;
-                RTree *_tree;
+                std::vector<std::pair <bbox_map_info, RTree::BoundingBox> > _bboxes;
                 QProgressDialog *progress;
                 std::vector<osg::Uniform*> shared_uniforms;
                 double latOrigin, longOrigin;
