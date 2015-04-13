@@ -326,7 +326,7 @@ namespace ews {
                 
             private:
                 Q_DISABLE_COPY(MeshFile)
-                QString curr_img;
+                std::vector<QString> curr_imgs;
                 //bool _enabled;
                 QStringList filenames;
                 RTree *_tree;

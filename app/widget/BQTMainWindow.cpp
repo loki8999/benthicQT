@@ -356,7 +356,6 @@ namespace ews {
                 QObject::connect(_ui->actionToggleMinimap, SIGNAL(triggered(bool)), &_state->getMeshFiles(), SLOT(switchMinimap(bool)));
 
                 QObject::connect( &_state->getMeshFiles(), SIGNAL(measureResults(osg::Vec3,osg::Vec3)),_ui->barrierEditor, SLOT(displayMeasure(osg::Vec3,osg::Vec3)));
-                QObject::connect(_ui->actionOpen_Images, SIGNAL(triggered()), &_state->getMeshFiles(), SLOT(openCurrentImage()));
                 QObject::connect(_ui->actionCopy_Images_Names, SIGNAL(triggered()), &_state->getMeshFiles(), SLOT(copyCurrentImageClipboard()));
                 QObject::connect( &_state->getMeshFiles(), SIGNAL(colorMapChanged(int)), _ui->barrierEditor, SLOT(updateDataUsedWidget(int)));
 

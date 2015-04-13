@@ -474,7 +474,7 @@ _pix_ratio=1.0;
             void MeshFile::copyCurrentImageClipboard(){
                 QClipboard *clipboard = QApplication::clipboard();
 
-                clipboard->setText(curr_img);
+                clipboard->setText(*(curr_imgs.rbegin ()));
             }
 
             void MeshFile::openCurrentImage()
@@ -497,11 +497,13 @@ _pix_ratio=1.0;
                     it++;
                 }
                 QUrl url;
-                QString fullpath=string(path+"/"+reldir+"/"+curr_img.toStdString()).c_str();
-                qDebug() << fullpath<<"\n";
-                if(curr_img.size())
-                    url.setUrl(fullpath);
-                QDesktopServices::openUrl(url);
+                stringstream ss;
+                ss << "eog ";
+                for (vector<QString>::const_iterator sit=curr_imgs.begin (); sit!=curr_imgs.end (); ++sit)
+                    ss << "img/" << sit->toStdString () << " ";
+                ss << "&";
+                cout << "CMD: " << ss.str () << endl;
+                system (ss.str ().c_str ());
             }
             void MeshFile::updateImage(osg::Vec3 v)
             {
@@ -512,11 +514,12 @@ _pix_ratio=1.0;
                double aux = v[0];
                v[0] = -v[1];
                v[1] = aux;
-                if(find_closet_img_idx(_tree,v,info)){
-                    curr_img=(info.leftname).c_str();
-                    emit imgLabelChanged(curr_img);
-                }else if(curr_img.size()){
-                    curr_img="";
+               cout << v << endl;
+               if(find_closet_img_idx(_tree,v,info,curr_imgs)){
+                    /* curr_img=(info.leftname).c_str(); */
+                    emit imgLabelChanged(curr_imgs[0]);
+                }else if(curr_imgs.size()){
+                   curr_imgs.resize (0);
                     QString s;
                     s=string("N/A").c_str();
                     emit imgLabelChanged(s);

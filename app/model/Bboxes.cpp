@@ -67,7 +67,7 @@ RTree *loadBBox(const char *str){
 }
 
 
-bool find_closet_img_idx(RTree *tree,osg::Vec3 pt,bbox_map_info &boxinfo){
+bool find_closet_img_idx(RTree *tree,osg::Vec3 pt,bbox_map_info &boxinfo, vector<QString> &files){
 
 
     if(!tree)
@@ -88,9 +88,10 @@ bool find_closet_img_idx(RTree *tree,osg::Vec3 pt,bbox_map_info &boxinfo){
     Visitor x;
     x.found=NULL;
     x = tree->Query(RTree::AcceptOverlapping(bb), Visitor());
-  //  std::cout << "Visited " << x.count << " nodes." << std::endl;
+   std::cout << "Visited " << x.count << " nodes." << std::endl;
     if(x.count > 0 && x.found ){
         boxinfo=x.found->leaf;
+        files = x.files;
         return true;
     }
     return false;

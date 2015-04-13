@@ -50,7 +50,7 @@ namespace ews {
             public:
                 
                 PositionHandler(MeshFile *mf,double latOrigin,double longOrigin) : GUIEventHandler(), activeDragger(NULL),
-                    _mf(mf),_lastServicedEvent(0),_intervalTime(0.2) {
+                    _mf(mf),_lastServicedEvent(0),_intervalTime(0.02) {
                     projWGS84 =new Local_WGS84_TM_Projection(latOrigin,longOrigin);
                 }
                 
